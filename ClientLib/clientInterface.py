@@ -1,4 +1,17 @@
 from time import sleep
+
+class Client:
+    def __init__(self, state="ON",channel=0):
+        self.state = state
+        self.channel = channel
+        self.username = None
+
+    def shutdown(self):
+        self.state = "SHUTDOWN"
+    
+    def setUsername(self, name):
+        self.username = name
+
 def InterfaceStart():
     print("Welcome to ICMChat!")
     sleep(1)
@@ -10,3 +23,7 @@ def InterfaceStart():
     #color = input("Select a Color!")
     
     return username
+
+def CheckState(client):
+    if client.state == "SHUTDOWN":
+        exit()

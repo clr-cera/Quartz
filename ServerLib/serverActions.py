@@ -4,7 +4,7 @@ def changeUsername(connections,usernames,message):
     username = message.text.split()[1]
 
     try:
-        oldEntry = connections.index(message.sender)
+        oldEntry = usernames[connections.index(message.sender)]
         usernames[connections.index(message.sender)] = username
 
         if oldEntry == None:
