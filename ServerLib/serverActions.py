@@ -26,3 +26,17 @@ def changeUsername(connections,usernames,message):
         message.username = username
         message.text = f"{message.username} has entered the chat."
         serverWire.SendMessage(connections,message,isUserMessage=False)
+
+def removeUser(connections,usernames,message):
+    
+    try:
+        message.username = usernames[connections.index(message.sender)]
+
+        usernames.pop(connections.index(message.sender))
+        connections.pop(connections.index(message.sender))
+
+        message.text = f"{message.username} has left the chat."
+        serverWire.SendMessage(connections,message,isUserMessage=False)
+
+    except:
+        connections.pop(connections.index(message.sender))

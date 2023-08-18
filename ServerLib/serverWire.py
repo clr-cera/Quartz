@@ -12,7 +12,7 @@ def CreateServerSocket(host, port):
     s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0)         
     s.bind((host,port,0,0))
 
-    s.listen()       
+    s.listen(50)       
     s.setblocking(False)
 
     return s
@@ -34,15 +34,26 @@ def SendMessage(connections, message, isUserMessage=True):
 
 # Receive messages from all connections and checks if any connection has been broken, returns a Msg object with the message and sender, if the connection is broken, the sender is None. If there is no message, returns None
 def ReceiveMessage(connections):
+    messagesList =[]
+
     if len(connections) > 0:
+        #print(len(connections)) #DEBUG
+
         for c in connections:
-            message = c.recv(4096)
+            try:
+                message = c.recv(4096)
 
-            if message:
-                return Msg(message.decode(), c)
+                if message:
+                    messagesList.append(Msg(message.decode(), c))
 
-            else: 
-                return Msg(None,c)
+                else: 
+                    messagesList.append(Msg(None,c))
+            
+            except:
+                pass
+
+    return messagesList
+        
 
 
 # Accepts any new connections
@@ -50,7 +61,9 @@ def AcceptConnections(connections, s):       # This functions accept a connectio
     
     try:
         c, addr = s.accept()     # Establish connection with client.
+        c.setblocking(False)
         connections.append(c)
+        print(f"accepted connection from {c}")
     except:
         pass
 
