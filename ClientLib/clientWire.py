@@ -31,4 +31,6 @@ def receiveCMessage(s):
         
 
 def sendCMessage(s,msg):
+    if msg == "quit":
+        exit()
     s.sendall(str.encode(msg))
