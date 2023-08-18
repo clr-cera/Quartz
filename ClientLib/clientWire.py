@@ -11,7 +11,7 @@ def connectSocket(host, port):
         sleep(3)
         print("Trying again!")
         sleep(5)
-        connectSocket(host,port)
+        return connectSocket(host,port)
 
         
 
