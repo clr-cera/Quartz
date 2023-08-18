@@ -1,17 +1,21 @@
 from ServerLib import serverWire
 from ServerLib import serverActions
-
+from time import sleep
 
 # This Manager accept new connections
 def ConnectionsManager(s,connections,usernames):
    while True:
+      sleep(0.2)
+      
       serverWire.AcceptConnections(connections, s)
 
 # This Manager receives messages and send messages 
 def ChatManager(s,connections,usernames):
    while True: 
+    sleep(0.2)
+
     messageList = serverWire.ReceiveMessage(connections)
-    
+
     for message in messageList:
         if message != None:
             if message.text!=None: # If the connection with someone has ended, this will be evaluated as none
