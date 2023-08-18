@@ -31,6 +31,9 @@ def receiveCMessage(s):
         
 
 def sendCMessage(s,msg):
-    if msg == "quit":
-        exit()
-    s.sendall(str.encode(msg))
+    try:
+        s.sendall(str.encode(msg))
+    except:
+        print("Connection with host is unstable, trying to send message again...")
+        sleep(2)
+        sendCMessage(s,msg)

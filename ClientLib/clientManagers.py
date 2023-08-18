@@ -19,10 +19,10 @@ def SendManager(s,client):
             client.shutdown()
             continue
 
-        if possibleCommand == "/username":
+        elif possibleCommand == "/username":
             client.setUsername(message.split()[1])
         
-        if (possibleCommand =="/who") or (possibleCommand == "/whoami"):
+        elif (possibleCommand =="/who") or (possibleCommand == "/whoami"):
             print(f"Your current username is: {client.username}")
             continue
         
