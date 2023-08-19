@@ -1,2 +1,2 @@
-HOST = "2804:431:cfec:c4c3:146f:7970:9c10:3c1f"
+HOST = "icmchat.ddns.net"
 PORT = 9998
