@@ -1,11 +1,5 @@
 import socket
-
-class Msg:
-    def __init__(self, text, sender, username=None):
-        self.text = text
-        self.sender = sender
-        self.username = username
-
+from Common import messageLib as msgl
 
 # Create the server socket
 def CreateServerSocket(host, port):
@@ -44,10 +38,10 @@ def ReceiveMessage(connections):
                 message = c.recv(4096)
 
                 if message:
-                    messagesList.append(Msg(message.decode(), c))
+                    messagesList.append(msgl.Msg(message.decode(), c))
 
                 else: 
-                    messagesList.append(Msg(None,c))
+                    messagesList.append(msgl.Msg(None,c))
             
             except:
                 pass
