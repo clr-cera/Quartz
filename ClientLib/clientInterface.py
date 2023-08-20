@@ -2,7 +2,7 @@ from time import sleep
 from threading import Thread
 
 class Client:
-    def __init__(self, state: str="ON",channel: int=0):
+    def __init__(self, state: str="ON", channel: int=0):
         self.state = state
         self.channel = channel
         self.username = None
