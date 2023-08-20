@@ -30,8 +30,4 @@ def InterfaceStart() -> None:
 
 def CheckState(client: Client) -> None:
     if client.state == "SHUTDOWN":
-        try:
-            exit()
-        except:
-            print("Could not close the client!")
-            client.state = "ON"
+        exit()

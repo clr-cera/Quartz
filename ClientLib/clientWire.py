@@ -5,7 +5,9 @@ def connectSocket(host: str, port: int) -> socket.socket:
     try:
         s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)          # Create a socket object
         s.connect((host, port,0,0))
+        s.setblocking(False)
         return s
+    
     except:
         print("The host could not be reached")
         sleep(3)
@@ -16,18 +18,23 @@ def connectSocket(host: str, port: int) -> socket.socket:
         
 
 def receiveCMessage(s: socket.socket) -> None:
+
     try:
         msg = s.recv(4096).decode()
         if msg:
-            print(f"{msg}")
+            return msg
 
+        else:
+            print("CONNECTION WITH HOST WAS INTERRUPTED!")
+            sleep(1)
+            print("RESTORING CONNECTION")
+            sleep(3)
+            receiveCMessage(s) 
+    
     except:
-        print("CONNECTION WITH HOST WAS INTERRUPTED!")
-        sleep(1)
-        print("RESTORING CONNECTION")
-        sleep(3)
-        receiveCMessage(s)
-        
+        pass
+
+
         
 
 def sendCMessage(s: socket.socket,msg: str) -> None:
