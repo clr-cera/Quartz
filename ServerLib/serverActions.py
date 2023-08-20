@@ -1,6 +1,9 @@
 from ServerLib import serverWire
+from Common import messageLib
+from socket import socket
 
-def changeUsername(connections,usernames,message):
+# This function changes or inserts a username in the usernames list
+def changeUsername(connections: list[socket], usernames: list[str], message: messageLib.Msg) -> None:
     username = message.text.split()[1]
 
     try:
@@ -27,7 +30,8 @@ def changeUsername(connections,usernames,message):
         message.text = f"{message.username} has entered the chat."
         serverWire.SendMessage(connections,message,isUserMessage=False)
 
-def removeUser(connections,usernames,message):
+# This function removes user from connections and usernames lists
+def removeUser(connections: list[socket], usernames: list[str], message: messageLib.Msg) -> None:
     
     try:
         message.username = usernames[connections.index(message.sender)]

@@ -1,9 +1,11 @@
-import threading
+from threading import Thread
+from typing import Callable as Functions, Any
 
-def ThreadSetup(managerList, argumentsList):
+# This functions takes a list of managers, a list of arguments and initializes all managers as separated threads, it returns a list with all threads
+def ThreadSetup(managerList: list[Functions], argumentsList: list[Any]) -> list[Thread]:
     threadsList = []
     for manager in managerList:
-        t = threading.Thread(target=manager, args=argumentsList, daemon=True)
+        t = Thread(target=manager, args=argumentsList, daemon=True)
         t.start()
         threadsList.append(t)
     

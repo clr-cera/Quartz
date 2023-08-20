@@ -1,16 +1,17 @@
 from ServerLib import serverWire
 from ServerLib import serverActions
 from time import sleep
+from socket import socket
 
 # This Manager accept new connections
-def ConnectionsManager(s,connections,usernames):
+def ConnectionsManager(s: socket,connections: list[socket],usernames: list[str]) -> None:
    while True:
       sleep(0.2)
       
       serverWire.AcceptConnections(connections, s)
 
 # This Manager receives messages and send messages 
-def ChatManager(s,connections,usernames):
+def ChatManager(s: socket,connections: list[socket],usernames: list[str]) -> None:
    while True: 
     sleep(0.2)
 

@@ -1,14 +1,14 @@
 from ClientLib import clientWire
 from ClientLib import clientInterface
-
+from socket import socket
 # This Manager receives and prints messages
-def ReceiveManager(s,client):
+def ReceiveManager(s: socket,client: clientInterface.Client) -> None:
     while True:
         clientInterface.CheckState(client)
         clientWire.receiveCMessage(s)
 
 # This Manager receive input from the user and send the message to the server
-def SendManager(s,client):
+def SendManager(s: socket,client: clientInterface.Client) -> None:
     while True:
         clientInterface.CheckState(client)
         

@@ -2,7 +2,7 @@ import socket
 from Common import messageLib as msgl
 
 # Create the server socket
-def CreateServerSocket(host, port):
+def CreateServerSocket(host: str, port: int) -> socket.socket:
     s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0)         
     s.bind((host,port,0,0))
 
@@ -12,7 +12,7 @@ def CreateServerSocket(host, port):
     return s
 
 # Sends the message to all connections
-def SendMessage(connections, message, isUserMessage=True):
+def SendMessage(connections: list[socket.socket], message: msgl.Msg, isUserMessage: bool=True) -> None:
     if isUserMessage:
         formatedText = f"{message.username}: {message.text}"
 
@@ -26,8 +26,8 @@ def SendMessage(connections, message, isUserMessage=True):
             c.sendall(str.encode(formatedText))
     
 
-# Receive messages from all connections and checks if any connection has been broken, returns a Msg object with the message and sender, if the connection is broken, the sender is None. If there is no message, returns None
-def ReceiveMessage(connections):
+# Receive messages from all connections and checks if any connection has been broken, returns a list of Msg objects with the message and sender, if the connection is broken, the sender is None. If there is no message, returns None
+def ReceiveMessage(connections: list[socket.socket]) -> list[msgl.Msg]:
     messagesList =[]
 
     if len(connections) > 0:
@@ -51,7 +51,7 @@ def ReceiveMessage(connections):
 
 
 # Accepts any new connections
-def AcceptConnections(connections, s):       # This functions accept a connection and append it to a connection and address lists
+def AcceptConnections(connections: list[socket.socket], s: socket.socket) -> None:       # This functions accept a connection and append it to a connection and address lists
     
     try:
         c, addr = s.accept()     # Establish connection with client.
@@ -62,7 +62,7 @@ def AcceptConnections(connections, s):       # This functions accept a connectio
         pass
 
 # This function closes all connections, the socket of the server and clear connections list
-def CloseServer(connections, s): 
+def CloseServer(connections: list[socket.socket], s: socket.socket) -> None: 
     for c in connections:
           c.close()
     s.close()

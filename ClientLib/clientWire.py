@@ -1,7 +1,7 @@
 import socket               # Import socket module
 from time import sleep
 
-def connectSocket(host, port):
+def connectSocket(host: str, port: int) -> socket.socket:
     try:
         s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)          # Create a socket object
         s.connect((host, port,0,0))
@@ -15,7 +15,7 @@ def connectSocket(host, port):
 
         
 
-def receiveCMessage(s):
+def receiveCMessage(s: socket.socket) -> None:
     try:
         msg = s.recv(4096).decode()
         if msg:
@@ -30,7 +30,7 @@ def receiveCMessage(s):
         
         
 
-def sendCMessage(s,msg):
+def sendCMessage(s: socket.socket,msg: str) -> None:
     try:
         s.sendall(str.encode(msg))
     except:
