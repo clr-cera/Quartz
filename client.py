@@ -21,5 +21,7 @@ argumentsList = [s,client]
 
 # This creates all necessary threads
 threadsList = threads.ThreadSetup(managerList, argumentsList)
+client.threads = threadsList
+
 for thread in threadsList:
    thread.join()

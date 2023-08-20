@@ -1,10 +1,12 @@
 from time import sleep
+from threading import Thread
 
 class Client:
     def __init__(self, state: str="ON",channel: int=0):
         self.state = state
         self.channel = channel
         self.username = None
+        self.threads: list[Thread] = None
 
     def shutdown(self) -> None:
         self.state = "SHUTDOWN"
@@ -28,4 +30,8 @@ def InterfaceStart() -> None:
 
 def CheckState(client: Client) -> None:
     if client.state == "SHUTDOWN":
-        exit()
+        try:
+            exit()
+        except:
+            print("Could not close the client!")
+            client.state = "ON"
