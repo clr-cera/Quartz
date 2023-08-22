@@ -8,7 +8,9 @@ def ReceiveManager(s: socket,client: clientInterface.Client) -> None:
     while True:
         sleep(0.05)
         clientInterface.CheckState(client)
-        print(clientWire.receiveCMessage(s))
+        msg = clientWire.receiveCMessage(s)
+        if msg != None:
+            print(msg)
 
 # This Manager receive input from the user and send the message to the server
 def SendManager(s: socket,client: clientInterface.Client) -> None:
