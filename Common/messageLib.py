@@ -2,17 +2,43 @@ import json
 from socket import socket
 
 class Msg:
-    def __init__(self, text: str, sender: socket, username: str=None):
-        self.text = text
-        self.sender = sender
-        self.username = username
+    def __init__(self, text: str, sender: socket=None, username: str=None):
+        self.text: str= text
+        self.sender: socket= sender
+        self.username: str= username
+        self.isServer: bool= False
 
-    def encode(self) -> str:
-        return json.dumps(self.__dict__, indent=2)
+    def __str__(self) -> str:
+        if self.isServer == False:
+            return(f"{self.username}: {self.text}")
+        else:
+            return(f"Server ~  {self.text}")
+
+    def encode(self) -> bytes:
+        '''Turns the Msg object into bytes.
+            \nWrites bytes as a json string.'''
+        return json.dumps(self.__dict__, indent=2).encode()
     
-    def decode(encodedString: str):
+    def decode(encodedString: bytes) -> 'Msg':
+        '''Turns bytes into a Msg object.
+            \nReads bytes as a json string.'''
         dict = json.loads(encodedString.decode())
         return Msg(**dict)
     
-    def __str__(self) -> str:
-            return((f"{self.username}: {self.text}").encode())
+
+    
+    def clearSender(self) -> None:
+        '''This clears Msg sender property.'''
+        self.sender = None
+
+    def setSender(self, c: socket):
+        '''This sets Msg sender property with the passed socket.'''
+        self.sender = c
+    
+    def setServerMessage(self) -> None:
+        '''This method configures the message to be sent as a server message.'''
+        self.isServer = True
+    
+    def setText(self,text: str) -> None:
+        '''Sets the text to the received parameter.'''
+        self.text = text

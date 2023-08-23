@@ -1,1 +1,1 @@
-__all__ = ["clientWire", "clientInterface", "clientManagers"]
+__all__ = ["clientWire", "clientInterface","clientClass"]

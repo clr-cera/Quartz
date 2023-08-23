@@ -1,27 +1,31 @@
 from ClientLib import *
+from ClientLib.clientManagers import *
+
 from Common import *
 
-# These are all Managers declarations
 
-# This creates and connects a socket with server
-s = clientWire.connectSocket(serverData.HOST, serverData.PORT)
+def main() -> None:
 
-# This is an object that will be used to track the clients current state
-client = clientInterface.Client()
+   # This is an object that will be used to track the clients current state and carry main properties
+   client = clientClass.Client()
 
-# This Starts the Interface and sends the chosen username to the server
-username = clientInterface.InterfaceStart()
-client.setUsername(username)
+   # This Starts the Interface
+   clientInterface.InterfaceStart(client)
 
-clientWire.sendCMessage(s,f"/username {client.username}")
+   # These are all necessary parameters for the creation of threads
+   managerList = [ReceiveManager, SendManager]
+   argumentsList = [client]
 
-# These are all necessary parameters for the creation of threads
-managerList = [clientManagers.ReceiveManager,clientManagers.SendManager]
-argumentsList = [s,client]
+   # This creates all necessary threads
+   threadsList = threads.ThreadSetup(managerList, argumentsList)
+   client.threads = threadsList
 
-# This creates all necessary threads
-threadsList = threads.ThreadSetup(managerList, argumentsList)
-client.threads = threadsList
+   for thread in threadsList:
+      thread.join()
 
-for thread in threadsList:
-   thread.join()
+
+
+
+
+if __name__ =="__main__":
+   main()

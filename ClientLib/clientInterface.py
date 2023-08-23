@@ -1,20 +1,7 @@
 from time import sleep
-from threading import Thread
+from ClientLib import clientClass, clientWire
 
-class Client:
-    def __init__(self, state: str="ON", channel: int=0):
-        self.state = state
-        self.channel = channel
-        self.username = None
-        self.threads: list[Thread] = None
-
-    def shutdown(self) -> None:
-        self.state = "SHUTDOWN"
-    
-    def setUsername(self, name: str) -> None:
-        self.username = name
-
-def InterfaceStart() -> None:
+def InterfaceStart(client: clientClass.Client) -> None:
     print("Welcome to ICMChat!")
     sleep(1)
 
@@ -25,9 +12,13 @@ def InterfaceStart() -> None:
     print("If you desire to change it later on, you can enter /username [NEW_USERNAME]")
     print("--------------Chat--------------")
     #color = input("Select a Color!")
-    
-    return username
 
-def CheckState(client: Client) -> None:
-    if client.state == "SHUTDOWN":
-        exit()
+    client.setUsername(username)
+    clientWire.sendCMessage(client.s,f"/username {client.username}")
+
+def MessageInput(client: clientClass.Client) -> str:
+    try:
+        return input()
+    
+    except: 
+        client.shutdown()

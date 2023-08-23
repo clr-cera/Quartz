@@ -1,9 +1,9 @@
-import socket               # Import socket module
+import socket
 from time import sleep
 
 def connectSocket(host: str, port: int) -> socket.socket:
     try:
-        s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)          # Create a socket object
+        s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
         s.connect((host, port,0,0))
         s.setblocking(False)
         return s

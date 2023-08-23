@@ -1,24 +1,25 @@
-from ClientLib import clientWire
-from ClientLib import clientInterface
+from ClientLib import *
 from socket import socket
 from time import sleep
 
 # This Manager receives and prints messages
-def ReceiveManager(s: socket,client: clientInterface.Client) -> None:
+def ReceiveManager(client: clientClass.Client) -> None:
     while True:
         sleep(0.05)
-        clientInterface.CheckState(client)
-        msg = clientWire.receiveCMessage(s)
+        client.CheckState()
+
+        msg = clientWire.receiveCMessage(client.s)
         if msg != None:
             print(msg)
 
 # This Manager receive input from the user and send the message to the server
-def SendManager(s: socket,client: clientInterface.Client) -> None:
+def SendManager(client: clientClass.Client) -> None:
     while True:
         sleep(0.05)
-        clientInterface.CheckState(client)
-        
-        message = input()
+        client.CheckState()
+
+        message = clientInterface.MessageInput(client)
+
         possibleCommand = message.lower().split()[0]
         
         if possibleCommand == "/exit":
@@ -33,4 +34,4 @@ def SendManager(s: socket,client: clientInterface.Client) -> None:
             continue
         
         
-        clientWire.sendCMessage(s,message)
+        clientWire.sendCMessage(client.s,message)
