@@ -1,6 +1,7 @@
 from ClientLib import *
 from socket import socket
 from time import sleep
+from Common import messageLib as mlib
 
 # This Manager receives and prints messages
 def ReceiveManager(client: clientClass.Client) -> None:
@@ -10,7 +11,7 @@ def ReceiveManager(client: clientClass.Client) -> None:
 
         msg = clientWire.receiveCMessage(client.s)
         if msg != None:
-            print(msg)
+            print(str(msg))
 
 # This Manager receive input from the user and send the message to the server
 def SendManager(client: clientClass.Client) -> None:
@@ -34,4 +35,4 @@ def SendManager(client: clientClass.Client) -> None:
             continue
         
         
-        clientWire.sendCMessage(client.s,message)
+        clientWire.sendCMessage(client.s,mlib.Msg(text=message,username=client.username))

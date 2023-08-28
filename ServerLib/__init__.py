@@ -1,1 +1,1 @@
-__all__ = ["serverWire", "serverManagers"]
+__all__ = ["serverWire", "serverManagers","serverClass"]

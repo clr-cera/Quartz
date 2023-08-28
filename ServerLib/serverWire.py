@@ -12,23 +12,26 @@ def CreateServerSocket(host: str, port: int) -> socket.socket:
     return s
 
 # Sends the message to all connections
-def SendMessage(connections: list[socket.socket], message: msgl.Msg, isUserMessage: bool=True) -> None:
-    if isUserMessage:
-        formatedText = f"{message.username}: {message.text}"
+def SendMessage(connections: list[socket.socket], message: msgl.Msg) -> None:
 
-    else:
-        formatedText = f"Server ~ {message.text}"
-    
-    print(formatedText)
+    print(str(message))
 
     for c in connections:
         if c != message.sender:
-            c.sendall(str.encode(formatedText))
-    
+            c.sendall(message.encode())
+
+def SendServerMessage(connections: list[socket.socket], message: msgl.Msg)-> None:
+    message.setServerMessage()
+    SendMessage(connections,message)
+
 
 # Receive messages from all connections and checks if any connection has been broken, returns a list of Msg objects with the message and sender, if the connection is broken, the sender is None. If there is no message, returns None
 def ReceiveMessage(connections: list[socket.socket]) -> list[msgl.Msg]:
-    messagesList =[]
+    """Receive messages from all connections and checks if any connection has been broken, returns a list of Msg objects with the message and sender.
+    \n If the connection is broken, the text is None.
+    \n If there is no message, returns None."""
+
+    messagesList: list[msgl.Msg]= []
 
     if len(connections) > 0:
         #print(len(connections)) #DEBUG
@@ -38,7 +41,14 @@ def ReceiveMessage(connections: list[socket.socket]) -> list[msgl.Msg]:
                 message = c.recv(4096)
 
                 if message:
-                    messagesList.append(msgl.Msg(message.decode(), c))
+                    try:
+                        messagesList.append(msgl.Msg.decode(message))
+                    
+                    except:
+                        print("Message is not being decoded!")
+                        continue
+
+                    messagesList[-1].setSender(c)
 
                 else: 
                     messagesList.append(msgl.Msg(None,c))

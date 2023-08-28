@@ -1,5 +1,6 @@
 from time import sleep
 from ClientLib import clientClass, clientWire
+from Common import messageLib as mlib
 
 def InterfaceStart(client: clientClass.Client) -> None:
     print("Welcome to ICMChat!")
@@ -14,7 +15,7 @@ def InterfaceStart(client: clientClass.Client) -> None:
     #color = input("Select a Color!")
 
     client.setUsername(username)
-    clientWire.sendCMessage(client.s,f"/username {client.username}")
+    clientWire.sendCMessage(client.s,mlib.Msg(text=f"/username {client.username}",username=client.username))
 
 def MessageInput(client: clientClass.Client) -> str:
     try:

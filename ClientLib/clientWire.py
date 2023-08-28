@@ -1,5 +1,6 @@
 import socket
 from time import sleep
+from Common import messageLib as mlib
 
 def connectSocket(host: str, port: int) -> socket.socket:
     try:
@@ -17,10 +18,10 @@ def connectSocket(host: str, port: int) -> socket.socket:
 
         
 
-def receiveCMessage(s: socket.socket) -> None:
+def receiveCMessage(s: socket.socket) -> mlib.Msg:
 
     try:
-        msg = s.recv(4096).decode()
+        msg: mlib.Msg= mlib.Msg.decode(s.recv(4096))
         if msg:
             return msg
 
@@ -38,9 +39,9 @@ def receiveCMessage(s: socket.socket) -> None:
 
         
 
-def sendCMessage(s: socket.socket,msg: str) -> None:
+def sendCMessage(s: socket.socket,msg: mlib.Msg) -> None:
     try:
-        s.sendall(str.encode(msg))
+        s.sendall(msg.encode())
     except:
         print("Connection with host is unstable, trying to send message again...")
         sleep(2)

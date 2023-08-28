@@ -2,7 +2,7 @@ import json
 from socket import socket
 
 class Msg:
-    def __init__(self, text: str, sender: socket=None, username: str=None):
+    def __init__(self, text: str, sender: socket=None, username: str=None, isServer=False):
         self.text: str= text
         self.sender: socket= sender
         self.username: str= username
@@ -12,7 +12,7 @@ class Msg:
         if self.isServer == False:
             return(f"{self.username}: {self.text}")
         else:
-            return(f"Server ~  {self.text}")
+            return(f"Server ~ {self.text}")
 
     def encode(self) -> bytes:
         '''Turns the Msg object into bytes.
@@ -42,3 +42,10 @@ class Msg:
     def setText(self,text: str) -> None:
         '''Sets the text to the received parameter.'''
         self.text = text
+
+
+
+"""if __name__ == "__main__":
+    encodedMessage = Msg(text="/username clara",username="clara").encode()
+    decodedMessage = Msg.decode(encodedMessage)
+    print(decodedMessage.__dict__)"""
