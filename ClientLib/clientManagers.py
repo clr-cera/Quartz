@@ -28,7 +28,12 @@ def SendManager(client: clientClass.Client) -> None:
             continue
 
         elif possibleCommand == "/username":
-            client.setUsername(message.split()[1])
+            client.setUsername(name:=message.split()[1])
+            print(f"Now you username is {name}")
+        
+        elif possibleCommand == "/color":
+            clientInterface.ReceiveColor(client)
+            continue
         
         elif (possibleCommand =="/who") or (possibleCommand == "/whoami"):
             print(f"Your current username is: {client.username}")

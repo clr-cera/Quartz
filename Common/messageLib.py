@@ -12,7 +12,7 @@ class Msg:
 
     def __str__(self) -> str:
         if self.isServer == False:
-            return(f"{colors.COLORS[color]}{self.username}{colors.RESETCOLOR}: {self.text}")
+            return(f"{colors.COLORS[self.color]}{self.username}{colors.RESETCOLOR}: {self.text}")
         else:
             return(f"Server ~ {self.text}")
 

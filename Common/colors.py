@@ -18,7 +18,7 @@ def printColors(color: str):
 
 def main():
     while True:
-        color = input("Type your desired color in ansi:\n")
+        color = input("Type your desired color:\n")
         printColors(color)
 
 if __name__ == "__main__":
