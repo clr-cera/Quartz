@@ -1,16 +1,18 @@
 import json
 from socket import socket
+from Common import colors
 
 class Msg:
-    def __init__(self, text: str, sender: socket=None, username: str=None, isServer=False):
+    def __init__(self, text: str, sender: socket=None, username: str=None, isServer: bool=False, color: str=None):
         self.text: str= text
         self.sender: socket= sender
         self.username: str= username
-        self.isServer: bool= False
+        self.isServer: bool= isServer
+        self.color: str=color
 
     def __str__(self) -> str:
         if self.isServer == False:
-            return(f"{self.username}: {self.text}")
+            return(f"{colors.COLORS[color]}{self.username}{colors.RESETCOLOR}: {self.text}")
         else:
             return(f"Server ~ {self.text}")
 

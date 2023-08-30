@@ -35,4 +35,4 @@ def SendManager(client: clientClass.Client) -> None:
             continue
         
         
-        clientWire.sendCMessage(client.s,mlib.Msg(text=message,username=client.username))
+        clientWire.sendCMessage(client.s,mlib.Msg(text=message, username=client.username, color=client.color))

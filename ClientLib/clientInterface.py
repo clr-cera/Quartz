@@ -9,12 +9,15 @@ def InterfaceStart(client: clientClass.Client) -> None:
     username = input("Type your username:\n")
     print(f"Your username will be {username}!")
     sleep(1)
+    print("If you desire to change it later on, you can enter /username USERNAME")
     
-    print("If you desire to change it later on, you can enter /username [NEW_USERNAME]")
+    color = input("Select a Color!")
+    print(f"Your color will be {color}!")
+    print("If you desire to change it later on, you can enter /color COLOR")
     print("--------------Chat--------------")
-    #color = input("Select a Color!")
 
     client.setUsername(username)
+    client.setColor(color)
     clientWire.sendCMessage(client.s,mlib.Msg(text=f"/username {client.username}",username=client.username))
 
 def MessageInput(client: clientClass.Client) -> str:
