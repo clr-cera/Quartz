@@ -8,7 +8,7 @@ let
   in
 
 pkgs.mkShell {
-  # nativeBuildInputs is usually what you want -- tools you need to run
+  name = "ICMChat";
   nativeBuildInputs = with pkgs.buildPackages; [
     (pkgs.python3.withPackages my-python-packages)
 
