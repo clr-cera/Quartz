@@ -14,15 +14,29 @@
 
           my-python-packages = ps: with ps; [ 
           dnspython
+          build
           ];
         in
 
         with pkgs;
         {
           devShells.default = mkShell {
+            name = "ICMChat";
             buildInputs = [
             (pkgs.python3.withPackages my-python-packages)
             ];
+          };
+
+          packages = rec {
+            default = ICMChatClient;
+
+            ICMChatClient = pkgs.python3Packages.buildPythonApplication rec {
+              format = "pyproject";
+              name = "ICMChat";
+              src = ./ICMChat;
+              propagatedBuildInputs = [ (pkgs.python3.withPackages my-python-packages) ];
+            };
+
           };
         }
       );

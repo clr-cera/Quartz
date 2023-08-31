@@ -4,6 +4,7 @@ let
     my-python-packages = ps: with ps; [ 
       # For dns translation
       dnspython
+      build
     ];
   in
 
