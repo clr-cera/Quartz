@@ -8,6 +8,8 @@
     flake-utils.lib.eachDefaultSystem
       (system:
         let
+          inherit (nixpkgs.lib) getExe;
+
           pkgs = import nixpkgs {
             inherit system;
           };
@@ -15,28 +17,32 @@
           my-python-packages = ps: with ps; [ 
           dnspython
           build
+          setuptools
           ];
-        in
-
-        with pkgs;
-        {
-          devShells.default = mkShell {
-            name = "ICMChat";
-            buildInputs = [
-            (pkgs.python3.withPackages my-python-packages)
-            ];
+          
+          mkApp = package: {
+            type = "app";
+            program = getExe package;
           };
-
+        in rec
+        
+        {
           packages = rec {
-            default = ICMChatClient;
+            default = ICMChatComplete;
 
-            ICMChatClient = pkgs.python3Packages.buildPythonApplication rec {
+            ICMChatComplete = pkgs.python3Packages.buildPythonApplication rec {
               format = "pyproject";
               name = "ICMChat";
-              src = ./ICMChat;
+              src = ./.;
               propagatedBuildInputs = [ (pkgs.python3.withPackages my-python-packages) ];
             };
 
+            
+
+          };
+          
+          apps = {
+            default = mkApp packages.${system}.ICMChat;
           };
         }
       );
