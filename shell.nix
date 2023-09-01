@@ -1,17 +1,14 @@
 { pkgs ? import <nixpkgs> {} }:
-
 let
-    my-python-packages = ps: with ps; [ 
-      # For dns translation
-      dnspython
-      build
-    ];
-  in
+  pythonEnv = pkgs.python3.withPackages(ps: with ps;[ dnspython build ]);
 
-pkgs.mkShell {
-  name = "ICMChat";
-  nativeBuildInputs = with pkgs.buildPackages; [
-    (pkgs.python3.withPackages my-python-packages)
-
-  ]; 
-}
+in
+(pkgs.buildFHSUserEnv {
+  name = "pip-Install-Shell";
+  targetPkgs = pkgs: ([
+    pythonEnv
+    pkgs.python3Packages.pip
+    pkgs.python3Packages.virtualenv
+  ]);
+  runScript = "bash";
+}).env
