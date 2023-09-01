@@ -31,15 +31,20 @@
               src = ./.;
               propagatedBuildInputs = [ (pkgs.python3.withPackages my-python-packages) ];
             };
+
+            Server =  pkgs.writeShellScriptBin "ICMChat-Server" ''
+              python ${ICMChat}/lib/python3.10/site-packages/ICMChat/server.py
+            '';
           };
-          apps = with system; rec {
+          apps = rec {
             default = {
               type = "app";
               program ="${packages.ICMChat}/bin/ICMChat";
             };
-            server = {
+            
+            Server = {
               type = "app";
-              program ="${packages.ICMChat}/bin/ICMChat-Server";
+              program =getExe packages.Server;
             };
 
           };
