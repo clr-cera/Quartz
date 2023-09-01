@@ -20,12 +20,7 @@
           setuptools
           ];
           
-          mkApp = package: {
-            type = "app";
-            program = getExe package;
-          };
         in rec
-        
         {
           packages = rec {
             default = ICMChatComplete;
@@ -41,9 +36,6 @@
 
           };
           
-          apps = {
-            default = mkApp packages.${system}.ICMChat;
-          };
         }
       );
 }

@@ -47,7 +47,7 @@ class Msg:
 
 
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     encodedMessage = Msg(text="/username clara",username="clara").encode()
     decodedMessage = Msg.decode(encodedMessage)
-    print(decodedMessage.__dict__)"""
+    print(decodedMessage.__dict__)
