@@ -23,16 +23,24 @@
         in rec
         {
           packages = rec {
-            default = ICMChatComplete;
+            default = ICMChat;
 
-            ICMChatComplete = pkgs.python3Packages.buildPythonApplication rec {
+            ICMChat = pkgs.python3Packages.buildPythonApplication rec {
               format = "pyproject";
               name = "ICMChat";
               src = ./.;
               propagatedBuildInputs = [ (pkgs.python3.withPackages my-python-packages) ];
             };
-
-            
+          };
+          apps = with system; rec {
+            default = {
+              type = "app";
+              program ="${packages.ICMChat}/bin/ICMChat";
+            };
+            server = {
+              type = "app";
+              program ="${packages.ICMChat}/bin/ICMChat-Server";
+            };
 
           };
           
