@@ -25,9 +25,10 @@
           packages = rec {
             default = ICMChat;
 
-            ICMChat = pkgs.python3Packages.buildPythonApplication rec {
+            ICMChat = pkgs.python3Packages.buildPythonApplication {
               format = "pyproject";
               name = "ICMChat";
+              pname = "ICMChat";
               src = ./.;
               propagatedBuildInputs = [ (pkgs.python3.withPackages my-python-packages) ];
             };
@@ -36,7 +37,7 @@
               python ${ICMChat}/lib/python3.10/site-packages/ICMChat/server.py
             '';
           };
-          apps = rec {
+          apps = {
             default = {
               type = "app";
               program ="${packages.ICMChat}/bin/ICMChat";
