@@ -3,8 +3,8 @@ import dns.resolver
 def getIPV6(domain: str) -> str:
     return dns.resolver.resolve(domain, 'AAAA')[0].to_text()
 
-DOMAIN = 'icmchat.ddns.net'
-HOST = getIPV6(DOMAIN)
+DOMAIN = ''
+HOST = "localhost"
 PORT = 9998
 
 
