@@ -3,7 +3,7 @@ from ClientLib import clientClass, clientWire
 from Common import messageLib as mlib, colors
 
 def InterfaceStart(client: clientClass.Client) -> None:
-    print("Welcome to ICMChat!")
+    print("Welcome to Quartz!")
     sleep(1)
 
     ReceiveUsername(client)
