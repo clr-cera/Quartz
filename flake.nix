@@ -23,24 +23,24 @@
         in rec
         {
           packages = rec {
-            default = ICMChat;
+            default = Quartz;
 
-            ICMChat = pkgs.python3Packages.buildPythonApplication {
+            Quartz = pkgs.python3Packages.buildPythonApplication {
               format = "pyproject";
-              name = "ICMChat";
-              pname = "ICMChat";
+              name = "Quartz";
+              pname = "Quartz";
               src = ./.;
               propagatedBuildInputs = [ (pkgs.python3.withPackages my-python-packages) ];
             };
 
-            Server =  pkgs.writeShellScriptBin "ICMChat-Server" ''
-              python ${ICMChat}/lib/python3.10/site-packages/ICMChat/server.py
+            Server =  pkgs.writeShellScriptBin "Quartz-Server" ''
+              python ${Quartz}/lib/python3.10/site-packages/Quartz/server.py
             '';
           };
           apps = {
             default = {
               type = "app";
-              program ="${packages.ICMChat}/bin/ICMChat";
+              program ="${packages.Quartz}/bin/Quartz";
             };
             
             Server = {
