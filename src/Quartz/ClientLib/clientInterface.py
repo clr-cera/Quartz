@@ -1,9 +1,10 @@
 from time import sleep
 from ClientLib import clientClass, clientWire
 from Common import messageLib as mlib, colors
+from Quartz import NAME
 
 def InterfaceStart(client: clientClass.Client) -> None:
-    print("Welcome to Quartz!")
+    print(f"Welcome to {NAME}!")
     sleep(1)
 
     ReceiveUsername(client)
