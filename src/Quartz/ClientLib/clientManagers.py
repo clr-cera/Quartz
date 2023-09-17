@@ -11,6 +11,8 @@ def ReceiveManager(client: clientClass.Client) -> None:
 
         msg = clientWire.receiveCMessage(client.s)
         if msg != None:
+            if client.CheckActions(msg.text, msg.text.lower().split()[0], "receiver", msg) == True:
+                continue
             print(str(msg))
 
 # This Manager receive input from the user and send the message to the server
@@ -20,8 +22,10 @@ def SendManager(client: clientClass.Client) -> None:
         client.CheckState()
 
         message = clientInterface.MessageInput(client)
-
-        possibleCommand = message.lower().split()[0]
+        try:
+            possibleCommand = message.lower().split()[0]
+        except:
+            continue
         
         if possibleCommand == "/exit":
             client.shutdown()
@@ -39,7 +43,7 @@ def SendManager(client: clientClass.Client) -> None:
             print(f"Your current username is: {client.username}")
             continue
 
-        if client.CheckActions(message, possibleCommand) == 1:
+        if client.CheckActions(message, possibleCommand,"sender", mlib.Msg(text=message, username=client.username, color=client.color)) == True:
             continue
         
         clientWire.sendCMessage(client.s,mlib.Msg(text=message, username=client.username, color=client.color))

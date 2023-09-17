@@ -1,3 +1,11 @@
+try:
+   from Quartz import IPTYPE
+except ModuleNotFoundError:
+   import os, sys
+   dir_path = os.path.dirname(os.path.realpath(__file__))
+   sys.path.append(f"{dir_path}/..")
+   pass
+
 from ClientLib import *
 from ClientLib.clientManagers import *
 

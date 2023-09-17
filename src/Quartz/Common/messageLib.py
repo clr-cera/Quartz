@@ -19,7 +19,7 @@ class Msg:
     def encode(self) -> bytes:
         '''Turns the Msg object into bytes.
             \nWrites bytes as a json string.'''
-        dictionary = self.__dict__
+        dictionary = self.__dict__.copy()
         dictionary["sender"] = None
         return json.dumps(dictionary, indent=2).encode()
     

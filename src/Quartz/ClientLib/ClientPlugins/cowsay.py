@@ -2,9 +2,16 @@
 This Plugin is just an example of a command plugin
 '''
 import os
-from ClientLib.clientClass import Client
+from Common.messageLib import Msg
 
-def commands(client: Client, message: str, possibleCommand: str):
+def commands(client, message: str, possibleCommand: str, role: str, msgObject: Msg):
     if possibleCommand =="/cowsay":
-        message.removeprefix(possibleCommand)
+        message = str(message.split(' ', 1)[1])
+        print(role)
+        print(str(msgObject))
         os.system(f"cowsay {message}")
+        
+        if role == "receiver":
+            return True
+        else:
+            return False

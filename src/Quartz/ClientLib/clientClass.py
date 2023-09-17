@@ -6,14 +6,15 @@ from Common import serverData, colors
 from types import ModuleType
 import importlib
 import pkgutil
-import ClientPlugins
+from ClientLib import ClientPlugins
+from Common.messageLib import Msg
+
 
 def iter_namespace(ns_pkg):
     # Specifying the second argument (prefix) to iter_modules makes the
     # returned name an absolute name instead of a relative one. This allows
     # import_module to work without having to do additional modification to
     # the name.
-    print(pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."))
     return pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + ".")
 
 discovered_plugins = [
@@ -52,12 +53,12 @@ class Client:
         if self.state == "SHUTDOWN":
             exit()
 
-    def CheckActions(self, message: str, possibleCommand: str) ->None:
-        '''This Function iterates on all plugins searching for commands to check in input'''
-        print(self.plugins)
+    def CheckActions(self, message: str, possibleCommand: str, role: str, msgObject: Msg) ->None:
+        '''This Function iterates on all plugins searching for commands to check, role can be "sender" or "receiver", which will be defined by the manager'''
         for plugin in self.plugins:
             try:
-                plugin.commands(self, message, possibleCommand)
+                if plugin.commands(self, message, possibleCommand, role, msgObject) == True:
+                    return True
             except:
                 pass
-        return 0
+        return False
