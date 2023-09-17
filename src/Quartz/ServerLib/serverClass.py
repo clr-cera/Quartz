@@ -27,6 +27,7 @@ class Server:
         self.connections: list[socket]= []
         self.usernames: list[str]= []
         self.s: socket= serverWire.CreateServerSocket(serverData.HOST, serverData.PORT)
+        self.plugins: dict[ModuleType]= discovered_plugins
 
     # This function removes user from connections and usernames lists
     def removeUser(self, message: messageLib.Msg) -> None:
