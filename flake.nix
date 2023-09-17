@@ -36,6 +36,12 @@
             Server =  pkgs.writeShellScriptBin "Quartz-Server" ''
               python ${Quartz}/lib/python3.10/site-packages/Quartz/server.py
             '';
+            
+            Docker = pkgs.dockerTools.buildImage {
+              name = "Quartz-Docker";
+              tag = "latest";
+              contents = [ Quartz Server (pkgs.python3.withPackages my-python-packages) ];
+            };
           };
           apps = {
             default = {
