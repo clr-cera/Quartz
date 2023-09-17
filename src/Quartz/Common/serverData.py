@@ -1,13 +1,22 @@
 import dns.resolver
-from Quartz import DOMAIN
+from Quartz import DOMAIN, IP, IPTYPE
 
-def getIPV6(domain: str) -> str:
+def getIPV6(domain: str, ip: str, iptype: str) -> str:
+    if ip != '':
+        return ip
+    
     if domain != '':
-        return dns.resolver.resolve(domain, 'AAAA')[0].to_text()
+        if iptype == 'IPV6':
+            return dns.resolver.resolve(domain, 'AAAA')[0].to_text()
+        
+        else:
+            return dns.resolver.resolve(domain, 'A')[0].to_text()
+
+    
     else:
         return "localhost"
 
-HOST = getIPV6(DOMAIN)
+HOST = getIPV6(DOMAIN, IP, IPTYPE)
 PORT = 9998
 
 

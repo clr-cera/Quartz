@@ -1,11 +1,17 @@
 import socket
 from time import sleep
 from Common import messageLib as mlib
+from Quartz import IPTYPE
 
 def connectSocket(host: str, port: int) -> socket.socket:
     try:
-        s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
-        s.connect((host, port,0,0))
+        if IPTYPE == 'IPV6':
+            s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+            s.connect((host, port,0,0))
+        else:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((host, port))
+
         s.setblocking(False)
         return s
     

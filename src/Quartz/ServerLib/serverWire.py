@@ -1,10 +1,16 @@
 import socket
 from Common import messageLib as msgl
+from Quartz import IPTYPE
 
 # Create the server socket
 def CreateServerSocket(host: str, port: int) -> socket.socket:
-    s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0)         
-    s.bind((host,port,0,0))
+    if IPTYPE =='IPV6':
+        s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0)
+        s.bind((host,port,0,0))
+    else:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM,0)
+        s.bind((host,port))
+    
 
     s.listen(50)       
     s.setblocking(False)
