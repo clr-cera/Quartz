@@ -38,6 +38,8 @@ def SendManager(client: clientClass.Client) -> None:
         elif (possibleCommand =="/who") or (possibleCommand == "/whoami"):
             print(f"Your current username is: {client.username}")
             continue
+
+        client.CheckActions(message, possibleCommand)
         
         
         clientWire.sendCMessage(client.s,mlib.Msg(text=message, username=client.username, color=client.color))

@@ -3,6 +3,23 @@ from socket import socket
 
 from ClientLib import clientWire
 from Common import serverData, colors
+from types import ModuleType
+import importlib
+import pkgutil
+import ClientPlugins
+
+def iter_namespace(ns_pkg):
+    # Specifying the second argument (prefix) to iter_modules makes the
+    # returned name an absolute name instead of a relative one. This allows
+    # import_module to work without having to do additional modification to
+    # the name.
+    return pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + ".")
+
+discovered_plugins = [
+    importlib.import_module(name)
+    for finder, name, ispkg
+    in iter_namespace(ClientPlugins)
+]
 
 class Client:
     def __init__(self, state: str="ON", channel: int=0):
@@ -11,6 +28,7 @@ class Client:
         self.username: str= None
         self.color: str=None
         self.threads: list[Thread]= None
+        self.plugins: dict[ModuleType]= discovered_plugins
         
         # The socket is automatically connected when Client is innitialized
         self.s: socket = clientWire.connectSocket(serverData.HOST, serverData.PORT)
@@ -32,3 +50,11 @@ class Client:
     def CheckState(self) -> None:
         if self.state == "SHUTDOWN":
             exit()
+
+    def CheckActions(self, message: str, possibleCommand: str) ->None:
+        '''This Function iterates on all plugins searching for commands to check in input'''
+        for plugin in self.plugins:
+            try:
+                plugin.commands(self, message, possibleCommand)
+            except:
+                pass
