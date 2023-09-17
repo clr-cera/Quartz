@@ -11,7 +11,7 @@ import importlib
 import pkgutil
 from ClientLib import ClientPlugins
 from Common.messageLib import Msg
-from typing import Any, Dict
+from typing import Any, Dict, Callable
 
 def iter_namespace(ns_pkg):
     # Specifying the second argument (prefix) to iter_modules makes the
@@ -69,3 +69,16 @@ class Client:
             except:
                 pass
         return False
+    
+    def PluginManagers(self) -> list[Callable]:
+        '''This Function iterates on all plugins searching for managers'''
+        pluginManagerList = []
+
+        if len(self.plugins) > 0:
+            for plugin in self.plugins:
+                try:
+                    pluginManagerList.append(plugin.manager)
+                except:
+                    pass
+
+        return pluginManagerList

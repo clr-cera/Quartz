@@ -10,9 +10,8 @@ except ModuleNotFoundError:
 
 from ClientLib import *
 from ClientLib.clientManagers import *
-
 from Common import *
-
+from typing import Callable
 
 def main() -> None:
    '''This is clients main Function'''
@@ -24,7 +23,9 @@ def main() -> None:
    clientInterface.InterfaceStart(client)
 
    # These are all necessary parameters for the creation of threads
-   managerList = [ReceiveManager, SendManager]
+   managerList: list[Callable]= [ReceiveManager, SendManager]
+   managerList.extend(client.PluginManagers())
+
    argumentsList = [client]
 
    # This creates all necessary threads

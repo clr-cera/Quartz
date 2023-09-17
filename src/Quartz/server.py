@@ -11,6 +11,7 @@ except ModuleNotFoundError:
 from Common import *
 from ServerLib import *
 import atexit 
+from typing import Callable
 
 
 def main() -> None:
@@ -19,7 +20,9 @@ def main() -> None:
    server = serverClass.Server()
 
    # These are the lists needed for threads creation
-   managerList = [serverManagers.ConnectionsManager, serverManagers.ChatManager, serverManagers.ServerInputManager]
+   managerList: list[Callable] = [serverManagers.ConnectionsManager, serverManagers.ChatManager, serverManagers.ServerInputManager]
+   managerList.extend(server.PluginManagers())
+
    argumentsList= [server]
 
    # This will be executed whenever the server ends

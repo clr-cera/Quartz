@@ -9,7 +9,7 @@ import importlib
 import pkgutil
 from ServerLib import ServerPlugins
 from Common.messageLib import Msg
-from typing import Any, Dict
+from typing import Any, Dict, Callable
 
 
 def iter_namespace(ns_pkg):
@@ -105,3 +105,16 @@ class Server:
             except:
                 pass
         return False
+    
+    def PluginManagers(self) -> list[Callable]:
+        '''This Function iterates on all plugins searching for managers'''
+        pluginManagerList = []
+        
+        if len(self.plugins) > 0:
+            for plugin in self.plugins:
+                try:
+                    pluginManagerList.append(plugin.manager)
+                except:
+                    pass
+
+        return pluginManagerList
