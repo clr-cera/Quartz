@@ -1,12 +1,13 @@
 from threading import Thread
 from socket import socket
 
+import ClientLib
 from ClientLib import clientWire
 from Common import serverData, colors
 from types import ModuleType
 import importlib
 import pkgutil
-import ClientPlugins
+
 
 def iter_namespace(ns_pkg):
     # Specifying the second argument (prefix) to iter_modules makes the
@@ -18,7 +19,7 @@ def iter_namespace(ns_pkg):
 discovered_plugins = [
     importlib.import_module(name)
     for finder, name, ispkg
-    in iter_namespace(ClientPlugins)
+    in iter_namespace(ClientLib.ClientPlugins)
 ]
 
 class Client:
@@ -53,8 +54,10 @@ class Client:
 
     def CheckActions(self, message: str, possibleCommand: str) ->None:
         '''This Function iterates on all plugins searching for commands to check in input'''
+        print(self.plugins)
         for plugin in self.plugins:
             try:
                 plugin.commands(self, message, possibleCommand)
             except:
                 pass
+        return 0

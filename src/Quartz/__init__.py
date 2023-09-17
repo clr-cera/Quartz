@@ -10,6 +10,7 @@ __author__ = __maintainer__ = 'clr-cera'
 NAME = 'Quartz'
 DOMAIN = ''
 IP = ''
+PORT = 9999
 IPTYPE = 'IPV4' # Can be IPV4 or IPV6, by default goes to IPV4
 
 VERSION = __version__

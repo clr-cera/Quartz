@@ -39,7 +39,7 @@ def SendManager(client: clientClass.Client) -> None:
             print(f"Your current username is: {client.username}")
             continue
 
-        client.CheckActions(message, possibleCommand)
-        
+        if client.CheckActions(message, possibleCommand) == 1:
+            continue
         
         clientWire.sendCMessage(client.s,mlib.Msg(text=message, username=client.username, color=client.color))
