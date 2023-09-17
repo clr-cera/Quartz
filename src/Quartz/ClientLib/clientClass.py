@@ -3,13 +3,12 @@
 from threading import Thread
 from socket import socket
 
-from ClientLib import clientWire
+from ClientLib import clientWire, ClientPlugins
 from Common import serverData, colors
 
 from types import ModuleType
 import importlib
 import pkgutil
-from ClientLib import ClientPlugins
 from Common.messageLib import Msg
 from typing import Any, Dict, Callable
 
