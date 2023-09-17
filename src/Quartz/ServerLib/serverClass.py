@@ -9,7 +9,7 @@ import importlib
 import pkgutil
 from ServerLib import ServerPlugins
 from Common.messageLib import Msg
-from typing import Any
+from typing import Any, Dict
 
 
 def iter_namespace(ns_pkg):
@@ -32,8 +32,8 @@ class Server:
         self.connections: list[socket]= []
         self.usernames: list[str]= []
         self.s: socket= serverWire.CreateServerSocket(serverData.HOST, serverData.PORT)
-        self.plugins: dict[ModuleType]= discovered_plugins
-        self.data: list[Any]= []
+        self.plugins: list[ModuleType]= discovered_plugins
+        self.data: Dict[str, Any]= []
 
         for plugin in self.plugins:
             print(plugin.__name__)
