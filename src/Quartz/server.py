@@ -16,7 +16,7 @@ def main():
    server = serverClass.Server()
 
    # These are the lists needed for threads creation
-   managerList = [serverManagers.ConnectionsManager, serverManagers.ChatManager]
+   managerList = [serverManagers.ConnectionsManager, serverManagers.ChatManager, serverManagers.ServerInputManager]
    argumentsList= [server]
 
    # This will be executed whenever the server ends

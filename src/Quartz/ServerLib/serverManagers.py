@@ -21,18 +21,27 @@ def ChatManager(server: serverClass.Server) -> None:
 
     for message in messageList:
         if message != None:
-            if message.text!=None: # If the connection with someone has ended, this will be evaluated as none
-                possibleCommand = message.text.split()[0]
+            if message.text != None: # If the connection with someone has ended, this will be evaluated as none
+               possibleCommand = message.text.lower().split()[0]
 
-                # If the user entered username command, it will try to change the username on the database and if there is no space for that, it will increase the space and then insert the username; If suitable, it will declare all changes in the chat
-                if (possibleCommand == "/username") and (len(message.text.split()) > 1):
-                   server.changeUsername(message)    
-
-                # If there was no command, just send normal message
-                else:
-                   message.username = server.usernames[server.connections.index(message.sender)]
-                   serverWire.SendMessage(server.connections,message)
+               # Built in Commands
+               if (possibleCommand == "/username") and (len(message.text.split()) > 1):
+                  server.changeUsername(message)
+               
+               # Plugin Commands
+               elif (server.CheckCActions(message.text, possibleCommand, message) == True):
+                  continue
+         
+               else:
+                  message.username = server.usernames[server.connections.index(message.sender)]
+                  serverWire.SendMessage(server.connections,message)
 
 
             else:
                 server.removeUser(message)
+
+def ServerInputManager(server: serverClass.Server) -> None:
+   """This function manages all input commands from server"""
+   while True:
+      message = input()
+      server.CheckSActions(message, message.lower().split()[0])

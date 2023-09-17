@@ -2,6 +2,26 @@ from ServerLib import serverWire
 from socket import socket
 from Common import *
 
+from types import ModuleType
+import importlib
+import pkgutil
+from ServerLib import ServerPlugins
+from Common.messageLib import Msg
+
+
+def iter_namespace(ns_pkg):
+    # Specifying the second argument (prefix) to iter_modules makes the
+    # returned name an absolute name instead of a relative one. This allows
+    # import_module to work without having to do additional modification to
+    # the name.
+    return pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + ".")
+
+discovered_plugins = [
+    importlib.import_module(name)
+    for finder, name, ispkg
+    in iter_namespace(ServerPlugins)
+]
+
 class Server:
     def __init__(self) -> None:
         self.connections: list[socket]= []
@@ -53,3 +73,23 @@ class Server:
             message.text = f"{message.username} has entered the chat."
 
             serverWire.SendServerMessage(self.connections,message)
+
+    def CheckCActions(self, message: str, possibleCommand: str, msgObject: Msg) ->None:
+        '''This Function iterates on all plugins searching for client commands to check'''
+        for plugin in self.plugins:
+            try:
+                if plugin.clientCommands(self, message, possibleCommand, msgObject) == True:
+                    return True
+            except:
+                pass
+        return False
+
+    def CheckSActions(self, message: str, possibleCommand: str) ->None:
+        '''This Function iterates on all plugins searching for server commands to check'''
+        for plugin in self.plugins:
+            try:
+                if plugin.serverCommands(self, message, possibleCommand) == True:
+                    return True
+            except:
+                pass
+        return False

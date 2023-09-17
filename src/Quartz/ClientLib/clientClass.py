@@ -3,6 +3,7 @@ from socket import socket
 
 from ClientLib import clientWire
 from Common import serverData, colors
+
 from types import ModuleType
 import importlib
 import pkgutil
