@@ -1,4 +1,3 @@
-# This is not pretty
 try:
    from Quartz import IPTYPE
 except ModuleNotFoundError:
