@@ -1,3 +1,5 @@
+'''This module eases color use'''
+
 COLORS = {
     "red":"\033[91m",
     "green":"\033[92m",
@@ -10,16 +12,16 @@ COLORS = {
 }
 RESETCOLOR = "\033[00m"
 
-def printColors(color: str):
+def __printColors(color: str):
     if color == "exit": exit()
     if color in COLORS:
         print(f"{COLORS[color]}I liked this color!{RESETCOLOR}\n")
     else: print("I dont understand this color!\n")
 
-def main():
+def __main():
     while True:
         color = input("Type your desired color:\n")
-        printColors(color)
+        __printColors(color)
 
 if __name__ == "__main__":
-    main()
+    __main()

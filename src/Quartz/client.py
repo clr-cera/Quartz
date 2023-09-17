@@ -1,3 +1,5 @@
+'''This is the client module'''
+
 try:
    from Quartz import IPTYPE
 except ModuleNotFoundError:
@@ -13,6 +15,7 @@ from Common import *
 
 
 def main() -> None:
+   '''This is clients main Function'''
 
    # This is an object that will be used to track the clients current state and carry main properties
    client = clientClass.Client()

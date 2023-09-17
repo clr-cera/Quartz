@@ -1,3 +1,5 @@
+'''This is the server module'''
+
 try:
    from Quartz import IPTYPE
 except ModuleNotFoundError:
@@ -11,8 +13,9 @@ from ServerLib import *
 import atexit 
 
 
-def main():
-
+def main() -> None:
+   '''This is Servers main function'''
+   
    server = serverClass.Server()
 
    # These are the lists needed for threads creation

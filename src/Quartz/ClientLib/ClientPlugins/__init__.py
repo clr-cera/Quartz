@@ -1,2 +1,2 @@
-'''Inside this folder all plugins will be used'''
+'''Inside this folder all plugins are inserted in client'''
 __all__ = []

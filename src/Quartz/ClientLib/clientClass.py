@@ -1,3 +1,5 @@
+'''This module defines the client class and the dictionary of all client plugins'''
+
 from threading import Thread
 from socket import socket
 
@@ -25,6 +27,8 @@ discovered_plugins = [
 ]
 
 class Client:
+    '''This class manages all data and main methods the client needs to'''
+
     def __init__(self, state: str="ON", channel: int=0):
         self.state: str= state
         self.channel: int= channel
@@ -51,6 +55,7 @@ class Client:
             print("The color you have chosen is not available")
     
     def CheckState(self) -> None:
+        '''This function checks the client state and takes an action if necessary'''
         if self.state == "SHUTDOWN":
             exit()
 

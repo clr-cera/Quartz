@@ -1,9 +1,13 @@
+'''This module stores every little complex interface functions'''
+
 from time import sleep
 from ClientLib import clientClass, clientWire
 from Common import messageLib as mlib, colors
 from Quartz import NAME
 
 def InterfaceStart(client: clientClass.Client) -> None:
+    '''This function receives initial info from user'''
+
     print(f"Welcome to {NAME}!")
     sleep(1)
 
@@ -24,6 +28,8 @@ def MessageInput(client: clientClass.Client) -> str:
 
 
 def ReceiveUsername(client: clientClass.Client) -> None:
+    '''This function receives username from user'''
+
     username = input("Type your username:\n")
     print(f"Your username will be {username}!")
     client.setUsername(username)
@@ -31,6 +37,8 @@ def ReceiveUsername(client: clientClass.Client) -> None:
     print("If you desire to change it later on, you can enter /username USERNAME")
 
 def ReceiveColor(client: clientClass.Client) -> None:
+    '''This function receives color from user'''
+
     while(True):
         color = input(f"""Select a Color!
 {colors.COLORS['red']}red 

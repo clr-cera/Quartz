@@ -1,9 +1,13 @@
+'''This module stores all server's network functions'''
+
 import socket
 from Common import messageLib as msgl
 from Quartz import IPTYPE
 
 # Create the server socket
 def CreateServerSocket(host: str, port: int) -> socket.socket:
+    '''This function creates the server socket and binds to host and port'''
+
     if IPTYPE =='IPV6':
         s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0)
         s.bind((host,port,0,0))
@@ -19,6 +23,7 @@ def CreateServerSocket(host: str, port: int) -> socket.socket:
 
 # Sends the message to all connections
 def SendMessage(connections: list[socket.socket], message: msgl.Msg) -> None:
+    '''This function sends a message to all connections except the sender'''
 
     print(str(message))
 
@@ -27,6 +32,8 @@ def SendMessage(connections: list[socket.socket], message: msgl.Msg) -> None:
             c.sendall(message.encode())
 
 def SendServerMessage(connections: list[socket.socket], message: msgl.Msg)-> None:
+    '''This function sends a message as the server'''
+
     message.setServerMessage()
     SendMessage(connections,message)
 
@@ -67,8 +74,9 @@ def ReceiveMessage(connections: list[socket.socket]) -> list[msgl.Msg]:
 
 
 # Accepts any new connections
-def AcceptConnections(connections: list[socket.socket], s: socket.socket) -> None:       # This functions accept a connection and append it to a connection and address lists
-    
+def AcceptConnections(connections: list[socket.socket], s: socket.socket) -> None: 
+    '''This function accepts new connections and append them to connections list'''
+
     try:
         c, addr = s.accept()     # Establish connection with client.
         c.setblocking(False)
@@ -77,8 +85,9 @@ def AcceptConnections(connections: list[socket.socket], s: socket.socket) -> Non
     except:
         pass
 
-# This function closes all connections, the socket of the server and clear connections list
 def CloseServer(connections: list[socket.socket], s: socket.socket) -> None: 
+    '''This function closes all connections, the socket of the server and clear connections list'''
+
     for c in connections:
           c.close()
     s.close()

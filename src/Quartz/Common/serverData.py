@@ -1,7 +1,14 @@
+'''Here is all network data Management'''
+
 import dns.resolver
 from Quartz import DOMAIN, IP, IPTYPE, PORT
 
-def getIPV6(domain: str, ip: str, iptype: str) -> str:
+def getIP(domain: str, ip: str, iptype: str) -> str:
+    '''This function receives a domain, an ip and an ip type (IPV6 or IPV4)
+    if the ip is not empty, it returns the ip
+    if the domain is not empty it resolves the domain
+    else, it returns "localhost"'''
+
     if ip != '':
         return ip
     
@@ -16,7 +23,7 @@ def getIPV6(domain: str, ip: str, iptype: str) -> str:
     else:
         return "localhost"
 
-HOST = getIPV6(DOMAIN, IP, IPTYPE)
+HOST = getIP(DOMAIN, IP, IPTYPE)
 PORT = PORT
 
 

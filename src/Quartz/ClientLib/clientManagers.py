@@ -1,10 +1,13 @@
+'''This module stores all core Client Managers'''
+
 from ClientLib import *
 from socket import socket
 from time import sleep
 from Common import messageLib as mlib
 
-# This Manager receives and prints messages
 def ReceiveManager(client: clientClass.Client) -> None:
+    '''This Manager receives and prints messages'''
+
     while True:
         sleep(0.05)
         client.CheckState()
@@ -15,8 +18,9 @@ def ReceiveManager(client: clientClass.Client) -> None:
                 continue
             print(str(msg))
 
-# This Manager receive input from the user and send the message to the server
 def SendManager(client: clientClass.Client) -> None:
+    '''This Manager receive input from the user and send the message to the server'''
+
     while True:
         sleep(0.05)
         client.CheckState()

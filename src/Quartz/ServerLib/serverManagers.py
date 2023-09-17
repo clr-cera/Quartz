@@ -1,3 +1,5 @@
+'''This module stores all core Server Managers'''
+
 from ServerLib import serverWire
 from ServerLib import serverClass
 from time import sleep

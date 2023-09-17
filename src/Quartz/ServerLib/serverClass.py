@@ -1,3 +1,5 @@
+'''This module defines the server class and the dictionary of all server plugins'''
+
 from ServerLib import serverWire
 from socket import socket
 from Common import *
@@ -23,6 +25,8 @@ discovered_plugins = [
 ]
 
 class Server:
+    '''This class manages all data and main methods the server needs to'''
+
     def __init__(self) -> None:
         self.connections: list[socket]= []
         self.usernames: list[str]= []
@@ -31,8 +35,8 @@ class Server:
         for plugin in self.plugins:
             print(plugin.__name__)
 
-    # This function removes user from connections and usernames lists
     def removeUser(self, message: messageLib.Msg) -> None:
+        '''This function removes user from connections and usernames lists'''
 
         try:
             userIndex = self.connections.index(message.sender)
@@ -50,6 +54,8 @@ class Server:
 
     # This function changes or inserts a username in the usernames list
     def changeUsername(self, message: messageLib.Msg) -> None:
+        '''This function changes or inserts the username of an user in the username list'''
+
         newUsername = message.text.split()[1]
 
         try:

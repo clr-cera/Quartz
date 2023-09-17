@@ -1,3 +1,5 @@
+'''This module defines the message class and all it's properties'''
+
 import json
 from socket import socket
 from Common import colors
