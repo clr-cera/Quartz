@@ -24,7 +24,6 @@ def SendMessage(connections: list[socket.socket], message: msgl.Msg) -> None:
 
     for c in connections:
         if c != message.sender:
-            print(c, message.sender)
             c.sendall(message.encode())
 
 def SendServerMessage(connections: list[socket.socket], message: msgl.Msg)-> None:
