@@ -4,15 +4,22 @@ from socket import socket
 from ClientLib import clientWire
 from Common import serverData, colors
 from types import ModuleType
-
 import importlib
 import pkgutil
+import ClientPlugins
+
+def iter_namespace(ns_pkg):
+    # Specifying the second argument (prefix) to iter_modules makes the
+    # returned name an absolute name instead of a relative one. This allows
+    # import_module to work without having to do additional modification to
+    # the name.
+    print(pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."))
+    return pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + ".")
 
 discovered_plugins = [
     importlib.import_module(name)
     for finder, name, ispkg
-    in pkgutil.iter_modules()
-    if name.startswith('client_')
+    in iter_namespace(ClientPlugins)
 ]
 
 class Client:
