@@ -11,7 +11,7 @@ import importlib
 import pkgutil
 from ClientLib import ClientPlugins
 from Common.messageLib import Msg
-
+from typing import Any
 
 def iter_namespace(ns_pkg):
     # Specifying the second argument (prefix) to iter_modules makes the
@@ -36,6 +36,7 @@ class Client:
         self.color: str=None
         self.threads: list[Thread]= None
         self.plugins: dict[ModuleType]= discovered_plugins
+        self.data: list[Any]= []
         
         # The socket is automatically connected when Client is innitialized
         self.s: socket = clientWire.connectSocket(serverData.HOST, serverData.PORT)
