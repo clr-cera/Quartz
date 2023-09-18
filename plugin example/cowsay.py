@@ -1,5 +1,5 @@
 '''
-This Plugin is just an example of a command plugin
+This Plugin is just an example of a command plugin, as this is a client plugin, it should be placed at ClientLib/ClientPlugins
 '''
 import os
 from Common.messageLib import Msg

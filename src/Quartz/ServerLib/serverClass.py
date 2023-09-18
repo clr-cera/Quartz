@@ -109,12 +109,12 @@ class Server:
     def PluginManagers(self) -> list[Callable]:
         '''This Function iterates on all plugins searching for managers'''
         pluginManagerList = []
-        
+
         if len(self.plugins) > 0:
             for plugin in self.plugins:
                 try:
-                    pluginManagerList.append(plugin.manager)
+                    pluginManagerList.extend(plugin.MANAGERLIST)
                 except:
                     pass
-
+                    
         return pluginManagerList

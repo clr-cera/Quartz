@@ -5,11 +5,12 @@ from socket import socket
 
 from ClientLib import clientWire, ClientPlugins
 from Common import serverData, colors
+from Common.messageLib import Msg
+import plugins # type: ignore
 
 from types import ModuleType
 import importlib
 import pkgutil
-from Common.messageLib import Msg
 from typing import Any, Dict, Callable
 
 def iter_namespace(ns_pkg):
@@ -23,7 +24,10 @@ discovered_plugins = [
     importlib.import_module(name)
     for finder, name, ispkg
     in iter_namespace(ClientPlugins)
-]
+] + [
+    importlib.import_module(name)
+    for finder, name, ispkg
+    in iter_namespace(plugins)]
 
 class Client:
     '''This class manages all data and main methods the client needs to'''
