@@ -93,7 +93,7 @@ python src/Quartz/server.py
 Everything should be up and running if all obligatory dependencies are met.
 
 ## Plugin Creation
-See [plugins instructions](./plugin-example/README.md)
+See [plugins instructions](./plugin-example/README.md).
 
 ### Credits
 Ranger file manager's README was a heavy inspiration for this file and I am very thankful.
