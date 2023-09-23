@@ -12,7 +12,7 @@ role: str,
 msgObject: Msg
 ) -> bool
 ```
-This function receives the client object (See src/Quartz/ClientLib/clientClass.py for client class), a string message, a string possible command, the role(If it is a receiver or the sender of given message) and a Msg object (See src/Quartz/common/messageLib for Msg class). This function is called everytime the client sends or receives a message, if it returns False, the message will continue to be passed to other commands(), and in the end, it will be printed if receiver or sent to server if sender. If a plugin's commands() wants for that message to not be printed or sent, it should return True if given role. See plugin-example for an example of Client Plugin with commands() function.
+This function receives the client object (See src/Quartz/ClientLib/clientClass.py for client class), a string message, a string possible command, the role(If it is a receiver or the sender of given message) and a Msg object (See src/Quartz/common/messageLib for Msg class). This function is called everytime the client sends or receives a message, if it returns False, the message will continue to be passed to other commands(), and in the end, it will be printed if receiver or sent to server if sender. If a plugin's commands() wants for that message to not be printed or sent, it should return True if given role. See cowsay.py for an example of Client Plugin with commands() function.
 
 - MANAGERLIST
 The list is MANAGERLIST, this list should contain functions with this header:
