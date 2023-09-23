@@ -94,7 +94,7 @@ Everything should be up and running if all obligatory dependencies are met.
 
 ## Plugin Creation
 ### Client Plugin
-Every Client Plugin will be scaned for two functions.
+Every Client Plugin will be scaned for one function and a list.
 - commands()
 The first function is commands(), this is the necessary header of any commands function:
 ```python
@@ -108,14 +108,14 @@ msgObject: Msg
 ```
 This function receives the client object (See src/Quartz/ClientLib/clientClass.py for client class), a string message, a string possible command, the role(If it is a receiver or the sender of given message) and a Msg object (See src/Quartz/common/messageLib for Msg class). This function is called everytime the client sends or receives a message, if it returns False, the message will continue to be passed to other commands(), and in the end, it will be printed if receiver or sent to server if sender. If a plugin's commands() wants for that message to not be printed or sent, it should return True if given role. See plugin-example for an example of Client Plugin with commands() function.
 
-- manager()
-The second function is manager(), this is the necessary header of any manager function:
+- MANAGERLIST
+The list is MANAGERLIST, this list should contain functions with this header:
 ```python
 (function) def manager(
 client,
 ) -> None
 ```
-This function receives the client object (See src/Quartz/ClientLib/clientClass.py for client class). If a plugin has this function, in the client initialization, a thread with this function as a target will be started. The plugin creator will be responsible to all this thread operations and its end, the client has a method CheckState() that can be used to end the thread when the user wants to quit.
+This function receives the client object (See src/Quartz/ClientLib/clientClass.py for client class). All function inside MANAGERLIST are going to be the target of newly created threads on client initialization. The plugin creator will be responsible to all these threads operations and its end, the client has a method CheckState() that can be used to end the thread when the user wants to quit.
 
 ### Server Plugin
 Every Server Plugin will be scaned for two functions and one list.
@@ -148,7 +148,7 @@ The list is MANAGERLIST, this list should contain functions with this header:
 server,
 ) -> None
 ```
-All function inside MANAGERLIST are going to be the target of newly created threads on server initialization. The plugin creator will be responsible to all these threads operations.
+This function receives the server object (See src/Quartz/ServerLib/serverClass.py for server class). All function inside MANAGERLIST are going to be the target of newly created threads on server initialization. The plugin creator will be responsible to all these threads operations.
 
 ### Credits
 Ranger file manager's README was a heavy inspiration for this file and I am very thankful.
