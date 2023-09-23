@@ -16,6 +16,7 @@ from typing import Callable
 def main() -> None:
    '''This is clients main Function'''
 
+   clientInterface.clearScreen()
    # This is an object that will be used to track the clients current state and carry main properties
    client = clientClass.Client()
 

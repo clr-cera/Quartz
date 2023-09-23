@@ -16,7 +16,7 @@ def ReceiveManager(client: clientClass.Client) -> None:
         if msg != None:
             if client.CheckActions(msg.text, msg.text.lower().split()[0], "receiver", msg) == True:
                 continue
-            print(str(msg))
+            clientInterface.printIncoming(str(msg))
 
 def SendManager(client: clientClass.Client) -> None:
     '''This Manager receive input from the user and send the message to the server'''
@@ -26,6 +26,9 @@ def SendManager(client: clientClass.Client) -> None:
         client.CheckState()
 
         message = clientInterface.MessageInput(client)
+        messageObject = mlib.Msg(text=message, username=client.username, color=client.color)
+        clientInterface.printSent(str(messageObject))
+
         try:
             possibleCommand = message.lower().split()[0]
         except:
@@ -47,7 +50,7 @@ def SendManager(client: clientClass.Client) -> None:
             print(f"Your current username is: {client.username}")
             continue
 
-        if client.CheckActions(message, possibleCommand,"sender", mlib.Msg(text=message, username=client.username, color=client.color)) == True:
+        if client.CheckActions(message, possibleCommand,"sender", messageObject) == True:
             continue
         
-        clientWire.sendCMessage(client.s,mlib.Msg(text=message, username=client.username, color=client.color))
+        clientWire.sendCMessage(client.s, messageObject)

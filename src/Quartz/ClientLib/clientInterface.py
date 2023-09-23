@@ -4,10 +4,12 @@ from time import sleep
 from ClientLib import clientClass, clientWire
 from Common import messageLib as mlib, colors
 from Quartz import NAME
+import os, sys
 
 def InterfaceStart(client: clientClass.Client) -> None:
     '''This function receives initial info from user'''
 
+    clearScreen()
     print(f"Welcome to {NAME}!")
     sleep(1)
 
@@ -31,7 +33,7 @@ def ReceiveUsername(client: clientClass.Client) -> None:
     '''This function receives username from user'''
 
     username = input("Type your username:\n")
-    print(f"Your username will be {username}!")
+    printSent(f"Your username will be {username}!")
     client.setUsername(username)
     sleep(1)
     print("If you desire to change it later on, you can enter /username USERNAME")
@@ -42,7 +44,7 @@ def ReceiveColor(client: clientClass.Client) -> None:
     while(True):
         color = input(f"""Select a Color!
 {colors.COLORS['red']}red 
-{colors.COLORS['green']}green 
+{colors.COLORS['green']}green    
 {colors.COLORS['yellow']}yellow 
 {colors.COLORS['lightPurple']}lightPurple 
 {colors.COLORS['purple']}purple 
@@ -52,12 +54,23 @@ def ReceiveColor(client: clientClass.Client) -> None:
 {colors.RESETCOLOR}""")
         
         if color in colors.COLORS:
-            print(f"Your color will be {color}!")
+            printSent(f"Your color will be {colors.COLORS[color]}{color}{colors.RESETCOLOR}!")
             client.setColor(color)
             break
 
         else:
-            print("Your selected color is not available!")
+            printSent("Your selected color is not available!")
 
     sleep(1)
     print("If you desire to change it later on, you can enter /color")
+
+def clearScreen() -> None:
+    os.system("clear")
+
+def printSent(string: str) -> None:
+    print("\033[F"+string)
+
+def printIncoming(string: str) -> None:
+    print("\n",end="")
+    print("\033[1A\033[1L",end="")
+    print(string,end="\n")
