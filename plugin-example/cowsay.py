@@ -7,8 +7,6 @@ from Common.messageLib import Msg # type: ignore
 def commands(client, message: str, possibleCommand: str, role: str, msgObject: Msg) ->bool:
     if possibleCommand =="/cowsay":
         message = str(message.split(' ', 1)[1])
-        print(role)
-        print(str(msgObject))
         os.system(f"cowsay {message}")
         
         if role == "receiver":
