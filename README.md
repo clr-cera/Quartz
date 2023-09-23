@@ -62,11 +62,11 @@ This folder is automatically created on first client execution.
 ### If you want to configure a Quartz based chat, you can follow these steps:
 0. Step Zero: Fork it, if you are going to make a Quartz based chat please do not send any configuration commit to this repo.
   
-1. First you can find and replace Quartz for whatever name you want inside flake.nix and change the name and console_scripts name inside setup.cfg. Please dont replace the name inside Src!!! (It can break!)
+1. Firstly: you can find and replace Quartz for whatever name you want inside flake.nix and change the name and console_scripts name inside setup.cfg. Please dont replace the name inside Src!!! (It can break!)
  
-2. Second you can enter your information in src/Quartz/__init__.py, such as chat's name, domain, ip, iptype(IPV6 or IPV4) and version. Here, if given IP it will be used, if not, the domain will be converted as IP and if no domain nor IP is given, the host will be localhost.
+2. Secondly: you can enter your information in src/Quartz/__init__.py, such as chat's name, domain, ip, iptype(IPV6 or IPV4) and version. Here, if given IP it will be used, if not, the domain will be converted as IP and if no domain nor IP is given, the host will be localhost.
   
-3. Third you can put every plugin you want inside their respective directories. For Client PLugins: src/Quartz/Clientlib/ClientPlugins. For Server Plugins: src/Quartz/ServerLib/ServerPlugins. Every plugin inserted will be automatically capted by client and Server.
+3. Thirdly: you can put every plugin you want inside their respective directories. For Client PLugins: src/Quartz/Clientlib/ClientPlugins. For Server Plugins: src/Quartz/ServerLib/ServerPlugins. Every plugin inserted will be automatically capted by client and Server.
 
 4. Deploy it with your desired method and publish the client!
 
