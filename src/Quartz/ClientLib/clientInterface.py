@@ -23,7 +23,7 @@ def InterfaceStart(client: clientClass.Client) -> None:
 
 def MessageInput(client: clientClass.Client) -> str:
     try:
-        return UserInput(client)
+        return input()# UserInput(client)
     
     except: 
         client.shutdown()
@@ -68,16 +68,19 @@ def clearScreen() -> None:
     os.system("clear")
 
 def printSent(string: str) -> None:
+    print(string)
+    """
     print("\033[F"+string)
-
+    """
 def printIncoming(string: str, client: clientClass.Client) -> None:
-    print("\n",end="")
+    print(string)
+    """print("\n",end="")
     print("\033[1A\033[1L",end="")
     print(string,end="\n")
     if client.cursorColumn != 0:
-        os.system(f"tput cuf {client.cursorColumn}")
+        os.system(f"tput cuf {client.cursorColumn}")"""
 
-def UserInput(client: clientClass.Client) -> str:
+"""def UserInput(client: clientClass.Client) -> str:
     string: str= ""
     char: str= sys.stdin.read(1)
     while char != '\n':
@@ -86,4 +89,4 @@ def UserInput(client: clientClass.Client) -> str:
         char = sys.stdin.read(1)
 
     client.cursorColumn = 0
-    return string
+    return string"""
