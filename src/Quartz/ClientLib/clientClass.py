@@ -3,7 +3,7 @@
 from threading import Thread
 from socket import socket
 
-from ClientLib import clientWire, ClientPlugins
+from ClientLib import clientWire, ClientPlugins, clientInterface
 from Common import serverData, colors
 from Common.messageLib import Msg
 import plugins # type: ignore
@@ -32,18 +32,17 @@ discovered_plugins = [
 class Client:
     '''This class manages all data and main methods the client needs to'''
 
-    def __init__(self, state: str="ON", channel: int=0):
+    def __init__(self, state: str="ON"):
         self.state: str= state
-        self.channel: int= channel
         self.username: str= None
         self.color: str=None
         self.threads: list[Thread]= None
         self.plugins: list[ModuleType]= discovered_plugins
         self.data: Dict[str:Any]= {}
+        self.cursorColumn: int = 0
         
         # The socket is automatically connected when Client is innitialized
         self.s: socket = clientWire.connectSocket(serverData.HOST, serverData.PORT)
-
 
     def shutdown(self) -> None:
         self.state = "SHUTDOWN"

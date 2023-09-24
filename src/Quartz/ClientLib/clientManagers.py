@@ -16,7 +16,7 @@ def ReceiveManager(client: clientClass.Client) -> None:
         if msg != None:
             if client.CheckActions(msg.text, msg.text.lower().split()[0], "receiver", msg) == True:
                 continue
-            clientInterface.printIncoming(str(msg))
+            clientInterface.printIncoming(str(msg), client)
 
 def SendManager(client: clientClass.Client) -> None:
     '''This Manager receive input from the user and send the message to the server'''
