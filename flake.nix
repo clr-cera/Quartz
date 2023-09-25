@@ -38,9 +38,17 @@
             '';
             
             Docker = pkgs.dockerTools.buildImage {
-              name = "Quartz-Docker";
+              name = "quartz-docker";
               tag = "latest";
-              contents = [ Quartz Server (pkgs.python3.withPackages my-python-packages) ];
+              copyToRoot = pkgs.buildEnv {
+                name = "image-root";
+                paths = [ pkgs.coreutils pkgs.bash Quartz Server (pkgs.python3.withPackages my-python-packages) ];
+                pathsToLink = [ "/bin" ];
+              };
+              
+              config = {
+                Cmd = ["/bin/Quartz-Server"];
+              };
             };
           };
           apps = {
