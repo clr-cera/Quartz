@@ -1,8 +1,8 @@
 {pkgs ? import <nixpkgs> {}}: let
-  pythonEnv = pkgs.python3.withPackages (ps: with ps; [dnspython build]);
+  pythonEnv = pkgs.python3.withPackages (ps: with ps; [dnspython build black]);
 in
   (pkgs.buildFHSUserEnv {
-    name = "pip-Install-Shell";
+    name = "Quartz Development Shell";
     targetPkgs = pkgs: [
       pythonEnv
       pkgs.python3Packages.pip
