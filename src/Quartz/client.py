@@ -1,13 +1,34 @@
-"""This is the client module"""
+'''This is the client module'''
 
 try:
-    from Quartz import IPTYPE
+   from Quartz import NAME
 except ModuleNotFoundError:
-    import os, sys
+   import os, sys
+   dir_path = os.path.dirname(os.path.realpath(__file__))
+   sys.path.append(f"{dir_path}/..")
+   from Quartz import NAME
+   pass
 
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    sys.path.append(f"{dir_path}/..")
-    pass
+import os, sys
+CONFDIR = os.path.expanduser(f'~/.config/{NAME.lower()}')
+
+def ConfigSetup(configpath):
+   if (os.path.exists(f"{configpath}")):
+      if (os.path.exists(f"{configpath}/plugins")):
+         if os.path.exists(f"{configpath}/plugins/__init__.py"):
+            return
+           
+         else:   
+            f = open(f"{configpath}/plugins/__init__.py", "w")
+            f.close()
+      
+      else: os.mkdir(f"{configpath}/plugins")
+   else: os.mkdir(configpath)
+   
+   ConfigSetup(configpath)
+
+ConfigSetup(CONFDIR)
+sys.path.append(CONFDIR)
 
 from ClientLib import *
 from ClientLib.clientManagers import *
