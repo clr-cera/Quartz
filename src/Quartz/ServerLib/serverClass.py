@@ -46,6 +46,8 @@ class Server:
             userIndex = self.connections.index(message.sender)
             message.username = self.usernames[userIndex]
 
+            if message.username == None: return
+            
             self.usernames.pop(userIndex)
             self.connections.pop(userIndex)
 
