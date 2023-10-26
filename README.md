@@ -28,10 +28,10 @@ Quartz is an extensible tcp chat. It provides a server and a client with more th
 - `docker`  for nix produced docker use
 
 ## Installing Client
-This repo has a Quartz package available inside the flake and also can be installed via `pip`.
-### Pip installation: 
+This repo has a Quartz package available inside the flake and also can be installed via `pipx`.
+### Pipx installation: 
 ```
-pip install .
+pipx install .
 ```
 
 ### Nix run:
