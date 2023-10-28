@@ -31,6 +31,7 @@ def MessageInput(client: clientClass.Client) -> str:
 
     except:
         client.shutdown()
+        return ''
 
 
 def ReceiveUsername(client: clientClass.Client) -> None:
