@@ -1,5 +1,7 @@
 # Quartz
-Quartz is an extensible tcp chat. It provides a server and a client with more than enough flexibity to suit your use case. It can be deployed in a local network or in the internet with ease due to `nix` integration. To create a Quartz based chat, one can fork this repo and make little changes as described in the Configuration section.
+Quartz is an extensible tcp chat. It provides a server and a simple client with more than enough flexibity to suit your use case. It can be deployed in a local network or in the internet with ease due to `nix` integration. To create a Quartz based chat, one can fork this repo and make little changes as described in the Configuration section.
+
+![Alt text](resources/readme-images/chat.png?raw=true "Chat")
 
 ## About
 - Authors: clr-cera
