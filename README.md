@@ -97,5 +97,8 @@ Everything should be up and running if all obligatory dependencies are met.
 ## Plugin Creation
 See [plugins instructions](./plugin-example/README.md).
 
+## Contributing
+Visit [contributing instruction](./CONTRIBUTING.md).
+
 ### Credits
 Ranger file manager's README was a heavy inspiration for this file and I am very thankful.
