@@ -3,25 +3,25 @@ Quartz is an extensible tcp chat. It provides a server and a simple client with 
 
 ![Alt text](resources/readme-images/chat.png?raw=true "Chat")
 
-## About
+## 📖 About
 - Authors: clr-cera
 - License: MIT License
 - Download: https://codeload.github.com/clr-cera/Quartz/zip/refs/heads/main
 - Bug reports: https://github.com/clr-cera/Quartz/issues
 - git clone https://github.com/clr-cera/Quartz.git
   
-## Design Goals
+## 🎯 Design Goals
 - An easily and completely extensible tcp chat in python
 - An easy, fast and integrated deployment using nix
 - Console-based but web extensible as well
 
-## Features
+## 🚀 Features
 - Tcp basic console chat
 - Plugin system
 - Commands interface
 - User selected names and colors
 
-## Dependencies
+## 📦 Dependencies
 ### Obligatory Dependencies
 - `Python` for everything
 - `dnspython` for domain resolving
@@ -29,7 +29,7 @@ Quartz is an extensible tcp chat. It provides a server and a simple client with 
 - `nix` for installation and deployment
 - `docker`  for nix produced docker use
 
-## Installing Client
+## ⬇️ Installing Client
 This repo has a Quartz package available inside the flake and also can be installed via `pipx`.
 ### Pipx installation: 
 ```
@@ -56,7 +56,7 @@ In configuration.nix:
 environment.systemPackages = [inputs.CHATNAME.packages.YOUR_SYSTEM.default];
 }
 ```
-## Configuration
+## ⚙️ Configuration
 ### If you want to add plugins to a Quartz based client:
 Plugins for client can be inserted in ~/.config/chatname/plugins/.
 
@@ -72,7 +72,7 @@ This folder is automatically created on first client execution.
 
 4. Deploy it with your desired method and publish the client!
 
-## Deploy
+## 🚚 Deploy
 The server can be deployed in various ways:
 - Nix run
 ```
@@ -94,10 +94,10 @@ python src/Quartz/server.py
 ```
 Everything should be up and running if all obligatory dependencies are met.
 
-## Plugin Creation
+## 🎨 Plugin Creation
 See [plugins instructions](./plugin-example/README.md).
 
-## Contributing
+## 🤝 Contributing
 Visit [contributing instruction](./CONTRIBUTING.md).
 
 ### Credits
